@@ -13,7 +13,7 @@
 
 쏘카 앱의 누적 다운로드 수가 1000만을 돌파하는 등 카셰어링 업계가 계속해서 성장함에 따라 보험료도 세분화할 필요가 있다고 생각했다. 이에 따라 여러가지 교통사고 발생 원인 중 가장 분쟁이 많은 유형인 차선 변경을 통해 주행 위험도를 감지할 수 있는 프로젝트를 진행하기로 결정했다. 이러한 위험도 수치화는 향후 안전 운전 회원에게는 쿠폰 및 보험료 할인(Benefit)을, 부주의 회원에게는 보험료 인상(Penalty)을 통해 주행 습관 연계 보험 적용에 활용될 수 있다.
  
-## 차선 변경 영상에서 위험도 추출
+## 최종 
 
 아래 두 예시는 각각 차선 변경 시 위험도를 보여준다. 첫 번째는 위험도 0.41, 두 번째는 위험도 0.31로 측정되었다.
 
@@ -112,5 +112,31 @@ CNN-LSTM 모델을 통해 데이터의 공간적 특성과 시계열 특성을 �
 ---
 <br>
 
+### 각 디렉토리 설명
+
+- test : 코랩에서 실제로 학습을 진행하고 테스트한 파일
+- Mask_RCNN : COCO dataset으로 사전 학습된 Mask RCNN을 기반으로한 메타(구 페이스북) 오픈소스인 Detectron2를 이용하여 이미지 프레임의 Instanve Segmentation 진행 
+- lane_change_risk_detection : 실제 모델이 저장되어 있는 디렉토리로 cnn_lstm모델과 Trainer 파일이 있으며 cnn_lstm의 성능 비교를 위한 cnn과 ResNet에 대한 모델도 포함되어 있음(실제로 cnn_lstm모델과 cnn 성능 비교를 하려 하였으나 시간이 부족하여 모델 비교는 진행하지 못 함)
 
 
+### 한계점
+
+- 차선 변경에 대한 명확하고 전문적인 위험 판단 기준이 없어, 팀원들의 주관적인 기준으로 차선 변경 영상의 위험도 scoring을 진행하였다.
+    → 위험도 예측 성능 저하에 영향을 미쳤을 것이라고 판단된다.
+    
+- 이번 구현에서는 각 Frame의 객체가 각기 다른 색상으로 표현되었다.
+    → 한 객체가 모든 Frame에서 같은 색상으로 표현된다면 더 높은 성능을 낼 수 있을 것으로 예상된다.
+
+
+--------
+### 참조
+- Risky Action Recognition in Lane Change Video Clips using Deep Spatiotemporal Networks with Segmentation Mask Transfer
+  Paper : https://arxiv.org/pdf/1906.02859.pdf
+  GitHub : https://github.com/Ekim-Yurtsever/DeepTL-Lane-Change-Classification
+
+
+- Scene-Graph Augmented Data-Driven Risk Assessment of Autonomous Vehicle Decisions
+  Paper : https://arxiv.org/pdf/2009.06435.pdf
+  GitHub : https://github.com/louisccc/sg-risk-assessment
+
+----------
